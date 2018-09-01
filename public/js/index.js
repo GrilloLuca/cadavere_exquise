@@ -16,3 +16,10 @@ socket.on('newMessage', function (message) {
     document.getElementById("messages").appendChild(node);
     
 });
+
+onSendMessage = () => {
+    var txtInput = document.getElementById('txtInput');
+    let message = txtInput.value;
+    socket.emit('createMessage', {from: 'user', text: message, createdAt: new Date().toLocaleTimeString()});
+    txtInput.value = "";
+}
