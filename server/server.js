@@ -12,6 +12,16 @@ const publicPath = path.join(__dirname, '../public')
 
 app.use(express.static(publicPath));
 
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./serviceAccountKey.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://cadavre-exquis-215311.firebaseio.com"
+});
+
+
 io.on('connection', (socket) => {
     console.log("New user connected");
 
@@ -21,9 +31,15 @@ io.on('connection', (socket) => {
         createdAt: new Date().toLocaleTimeString()
     });
 
+    socket.broadcast.emit('newMessage', {
+        from: 'Server',
+        text: 'New user joined',
+        createdAt: new Date().toLocaleTimeString()
+    });
+
     socket.on('createMessage', (message) => {
         console.log('createMessage', message);
-        io.emit('newMessage', {
+        socket.broadcast.emit('newMessage', {
             from: message.from,
             text: message.text,
             createdAt: message.createdAt
