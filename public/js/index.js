@@ -10,16 +10,27 @@ socket.on('disconnect', function () {
 socket.on('newMessage', function (message) {
     console.log("new Message", message);
 
-    var node = document.createElement("P"); 
+    var node = document.createElement("li"); 
     var textnode = document.createTextNode(`${message.createdAt} [${message.from}]: ${message.text}`);
     node.appendChild(textnode);
     document.getElementById("messages").appendChild(node);
     
 });
 
+document.getElementById('message-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    onSendMessage();
+});
+
+
 onSendMessage = () => {
-    var txtInput = document.getElementById('txtInput');
-    let message = txtInput.value;
-    socket.emit('createMessage', {from: 'user', text: message, createdAt: new Date().toLocaleTimeString()});
+    socket.emit('createMessage', {
+        from: 'user', 
+        text: document.getElementById('txtInput').value, 
+        createdAt: new Date().getTime()
+    }, function(data) {
+        console.log('Got it!', data);
+    });
     txtInput.value = "";
 }
