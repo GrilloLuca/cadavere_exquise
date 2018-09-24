@@ -1,3 +1,13 @@
 #messages {
     list-style: none;
 }
+#message-form {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.people {
+    background-color: lawngreen;
+    height: 100%;
+}
