@@ -6,7 +6,10 @@
     bottom: 0;
     width: 100%;
 }
-
+.messages {
+    overflow: auto;
+    height: 100%;
+}
 .people {
     background-color: lawngreen;
     height: 100%;

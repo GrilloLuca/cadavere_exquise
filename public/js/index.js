@@ -12,7 +12,7 @@ socket.on('newMessage', function (message) {
     console.log("new Message", message);
 
     var node = document.createElement("li"); 
-    var textnode = document.createTextNode(`[${message.from}]: ${message.text}`);
+    var textnode = document.createTextNode(`${message.createdAt} [${message.from}]: ${message.text}`);
     node.appendChild(textnode);
     document.getElementById("messages").appendChild(node);
     
