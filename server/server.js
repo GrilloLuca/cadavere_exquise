@@ -23,6 +23,8 @@ admin.initializeApp({
   databaseURL: "https://cadavre-exquis-215311.firebaseio.com"
 });
 
+var db = admin.database();
+var ref = db.ref("server/messages");
 
 io.on('connection', (socket) => {
     console.log("New user connected");
@@ -35,6 +37,9 @@ io.on('connection', (socket) => {
         console.log('createMessage', message);
         io.emit('newMessage', generateMessage(message.from, message.text));
         callback();
+
+        var usersRef = ref.child("users");
+        usersRef.set(message);
     });
 
     socket.on('disconnect', (socket) => {

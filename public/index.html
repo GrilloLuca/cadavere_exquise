@@ -3,71 +3,39 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>chat</title>
+    <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
     <link rel="stylesheet" type="text/css" href="css/bulma.css">
 </head>
 <body>
 
-    <div class="container">
-        <section class="hero">
+    <div class="container is-fluid">
+        <section class="hero is-primary is-medium">
             <div class="hero-body">
                 <div class="container">
                 <h1 class="title">
                     c a d a v e r e &nbsp;&nbsp;&nbsp; e x q u i s i t e
                 </h1>
+                <h2 class="subtitle">
+                    Login
+                </h2>
                 </div>
             </div>
         </section>
+        <form action="chat.html">
+            <div class="field">
+                <label class="label">nickname</label>
+                <div class="control">
+                    <input class="input" type="text" name="nickname" placeholder="enter nickname">
+                </div>
+            </div>
 
-        <div class="columns">
-            <div class="column is-3">
-                <section class="section people">
-                    <div class="container">people</div>
-                </section>
-            </div>
-            <div class="column messages">
-                    <ol id="messages"></ol>
-                    <form action="" id="message-form">
-                        <div class="field has-addons">
-                            <div class="control">
-                                <input class="input" 
-                                    type="text" 
-                                    id="txtInput" 
-                                    placeholder="Message"
-                                    autofocus
-                                    aurocomplete="off">
-                            </div>
-                            <div class="control">
-                                <input class="button is-primary" 
-                                    type="submit" 
-                                    id="btnSubmit" 
-                                    value="Send">
-                            </div>
-                        </div>
-                    </form>
-            </div>
-        </div>
-        
+            <button class="button is-primary">login</button>
+        </form>
     </div>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/index.js"></script>
-
-    <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
-    <script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyAODOzFDZlOAWb9YnV6DSUoXK0M8vGtke4",
-        authDomain: "cadavre-exquis-215311.firebaseapp.com",
-        databaseURL: "https://cadavre-exquis-215311.firebaseio.com",
-        projectId: "cadavre-exquis-215311",
-        storageBucket: "cadavre-exquis-215311.appspot.com",
-        messagingSenderId: "554100149782"
-    };
-    firebase.initializeApp(config);
-    </script>
+    
 
 </body>
 </html>

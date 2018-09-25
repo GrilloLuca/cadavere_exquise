@@ -12,5 +12,6 @@
 }
 .people {
     background-color: lawngreen;
-    height: 100%;
+    /* height: 100%; */
 }
+.flex-wrap { flex-wrap: wrap; }
