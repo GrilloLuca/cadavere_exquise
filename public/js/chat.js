@@ -42,10 +42,8 @@ document.getElementById('message-form').addEventListener('submit', function (e) 
     onSendMessage();
 });
 
-
 onSendMessage = () => {
     socket.emit('createMessage', {
-        from: 'user',
         text: document.getElementById('txtInput').value,
         createdAt: new Date().getTime()
     }, function (data) {
