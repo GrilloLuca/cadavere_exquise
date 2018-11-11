@@ -46,7 +46,5 @@ onSendMessage = () => {
     socket.emit('createMessage', {
         text: document.getElementById('txtInput').value,
         createdAt: new Date().getTime()
-    }, function (data) {
-        txtInput.value = "";
-    });
+    }, txtInput.value = "" );
 }

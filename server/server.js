@@ -3,6 +3,12 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 const queryString = require('query-string');
+const Firestore = require('@google-cloud/firestore');
+
+const firestore = new Firestore({
+  projectId: 'cadavre-exquis-215311',
+  keyFilename: 'server/serviceAccountKey.json',
+});
 
 var { generateMessage } = require('./utils/message');
 var { isRealString } = require('./utils/validator');
@@ -31,9 +37,38 @@ admin.initializeApp({
 var db = admin.database();
 var ref = db.ref("server/messages");
 
+
+var story = firestore.collection('story');
+
 io.on('connection', (socket) => {
     console.log("New user connected");
 
+    story.get()
+        .then(snapshot => {
+        snapshot.forEach(doc => {
+            doc.data().messages.forEach(msg => {
+
+                firestore.collection('messages').doc(msg.id).get()
+                    .then(doc => {
+                        if (!doc.exists) {
+                        console.log('No such document!');
+                        } else {
+                            var message = doc.data();
+                            var user = users.getUser(socket.id);
+                            io.to(user.room).emit('newMessage', generateMessage(message.created_by, `${message.text}`));
+                        }
+                    })
+                    .catch(err => {
+                        console.log('Error getting document', err);
+                    });
+            });
+      });
+    })
+    .catch(err => {
+      console.log('Error getting documents', err);
+    });
+
+    
     socket.on('createMessage', (message, callback) => {
         var user = users.getUser(socket.id);
         if(user && isRealString(message.text)) {
@@ -41,8 +76,8 @@ io.on('connection', (socket) => {
         }
         callback();
 
-        var usersRef = ref.child("/");
-        usersRef.set(message);
+        var dbMessages = ref.child(`/${message.createdAt}/`);
+        dbMessages.set(message);
     });
 
     socket.on('disconnect', () => {
