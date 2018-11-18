@@ -1,11 +1,6 @@
 #messages {
     list-style: none;
 }
-#message-form {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
 .messages {
     overflow: auto;
     height: 100%;
@@ -15,3 +10,8 @@
     /* height: 100%; */
 }
 .flex-wrap { flex-wrap: wrap; }
+
+.footerx {
+    position: fixed;
+    bottom: 0;
+}
